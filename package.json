@@ -1,7 +1,17 @@
 {
   "name": "copyfordocumentation",
-  "displayName": "CopyForDocumentation",
+  "displayName": "Copy For Documentation",
   "description": "Copy a snippet of code as a markdown code block for easy pasting into a documentation.",
+  "author": {
+    "name": "Adam D Bachman",
+    "email": "adam.bachman@gmail.com",
+    "url": "https://github.com/abachman"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/abachman/vscode-copyfordocumentation.git"
+  },
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.87.0"
