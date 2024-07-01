@@ -2,6 +2,7 @@
   "name": "copyfordocumentation",
   "displayName": "Copy For Documentation",
   "description": "Copy a snippet of code as a markdown code block for easy pasting into a documentation.",
+  "publisher": "abachman",
   "author": {
     "name": "Adam D Bachman",
     "email": "adam.bachman@gmail.com",
@@ -12,7 +13,7 @@
     "type": "git",
     "url": "https://github.com/abachman/vscode-copyfordocumentation.git"
   },
-  "version": "0.0.1",
+  "version": "0.1.0",
   "engines": {
     "vscode": "^1.87.0"
   },
@@ -26,6 +27,14 @@
       {
         "command": "copyfordocumentation.copy",
         "title": "Copy For Documentation"
+      },
+      {
+        "command": "copyfordocumentation.copySlack",
+        "title": "Copy For Slack"
+      },
+      {
+        "command": "copyfordocumentation.copyHtml",
+        "title": "Copy For HTML"
       }
     ]
   },
@@ -33,7 +42,8 @@
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
-    "pretest": "npm run compile && npm run lint",
+    "pretest": "npm run clean && npm run compile && npm run lint",
+    "clean": "rimraf out",
     "lint": "eslint src --ext ts",
     "test": "vscode-test"
   },
@@ -45,7 +55,7 @@
     "@typescript-eslint/parser": "^7.4.0",
     "eslint": "^8.57.0",
     "typescript": "^5.4.3",
-    "@vscode/test-cli": "^0.0.8",
-    "@vscode/test-electron": "^2.3.9"
+    "@vscode/test-cli": "^0.0.9",
+    "@vscode/test-electron": "^2.4.0"
   }
 }
