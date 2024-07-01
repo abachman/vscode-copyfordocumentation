@@ -1,0 +1,43 @@
+name: Run VSCode Extension Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+env: 
+  CACHE_NPM_DEPS: cache-npm
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/iron
+
+      # cache npm packages (https://github.com/actions/cache/blob/main/examples.md#node---npm)
+      - name: Cache npm files
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{runner.os}}-${{env.CACHE_NPM_DEPS}}-${{hashFiles('package-lock.json')}}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies
+        run: npm ci --ignore-scripts --prefer-offline --no-audit
+
+      - name: Run lint
+        run: npm run lint
+
+      - name: Run tests
+        run: xvfb-run -a npm run test
+
