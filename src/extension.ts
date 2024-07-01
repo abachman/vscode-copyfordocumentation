@@ -18,14 +18,21 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
     vscode.commands.registerCommand(
       "copyfordocumentation.copy",
-      new Copier("markdown").copy
+      new Copier().copy("markdown")
     )
   );
 
   context.subscriptions.push(
     vscode.commands.registerCommand(
       "copyfordocumentation.copySlack",
-      new Copier("slack").copy
+      new Copier().copy("slack")
+    )
+  );
+
+  context.subscriptions.push(
+    vscode.commands.registerCommand(
+      "copyfordocumentation.copyHtml",
+      new Copier().copy("html")
     )
   );
 }

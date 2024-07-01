@@ -10,30 +10,61 @@ class SnippetFormatter {
   }
 
   format(): string {
-    return [this.label(), this.openCodeBlock(), this.codeBlock(), "```"].join(
-      "\n"
-    );
+    return [
+      this.label(),
+      this.openCodeBlock(),
+      this.codeBlock(),
+      this.closeCodeBlock(),
+    ].join("\n");
   }
 
   label(): string {
     const { snip } = this;
-    return `\`${snip.path}:${snip.start_line}-${snip.end_line}\`:\n`;
+    switch (this.mode) {
+      case "html":
+        return `<p><code>${snip.path}:${snip.start_line}-${snip.end_line}</code></p>`;
+      default:
+        return `\`${snip.path}:${snip.start_line}-${snip.end_line}\`:\n`;
+    }
   }
 
   openCodeBlock(): string {
-    return "```" + this.languageToMarkdownExtension(this.snip.language);
+    switch (this.mode) {
+      case "markdown":
+        return "```" + this.languageId();
+      case "slack":
+        return "```";
+      case "html":
+        return `<pre><code class="language-${this.languageId()}">`;
+      default:
+        return "";
+    }
   }
 
   codeBlock(): string {
     return this.dedent(this.snip.snippet);
   }
 
+  closeCodeBlock(): string {
+    switch (this.mode) {
+      case "html":
+        return "</code></pre>";
+      default:
+        return "```";
+    }
+  }
+
+  languageId(): string {
+    return this.languageToMarkdownExtension(this.snip.language);
+  }
+
+  // https://github.com/highlightjs/highlight.js/blob/main/SUPPORTED_LANGUAGES.md
   languageToMarkdownExtension(language: Language): string {
     return (
       {
         javascriptreact: "jsx",
         typescriptreact: "tsx",
-        shellscript: "sh",
+        shellscript: "shell",
       }[language] || language
     );
   }

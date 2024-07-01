@@ -31,6 +31,10 @@
       {
         "command": "copyfordocumentation.copySlack",
         "title": "Copy For Slack"
+      },
+      {
+        "command": "copyfordocumentation.copyHtml",
+        "title": "Copy For HTML"
       }
     ]
   },
@@ -38,7 +42,8 @@
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
-    "pretest": "npm run compile && npm run lint",
+    "pretest": "npm run clean && npm run compile && npm run lint",
+    "clean": "rimraf out",
     "lint": "eslint src --ext ts",
     "test": "vscode-test"
   },

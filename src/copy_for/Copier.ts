@@ -7,32 +7,29 @@ import { Selector } from "./Selector";
 import { SnippetFormatter } from "./SnippetFormatter";
 
 class Copier {
-  mode: CopyMode;
+  copy(mode: CopyMode): () => void {
+    return () => {
+      const editor = vscode.window.activeTextEditor;
+      if (typeof editor === "undefined") {
+        return () => {};
+      }
 
-  constructor(mode: CopyMode) {
-    this.mode = mode;
-  }
+      // Format the selected text for documentation
+      const snippet = new Selector(editor).select();
+      const formatter = new SnippetFormatter(snippet, mode);
+      const formatted = formatter.format();
 
-  copy() {
-    const editor = vscode.window.activeTextEditor;
-    if (typeof editor === "undefined") {
-      return;
-    }
+      console.log("formatted:", JSON.stringify(formatted));
 
-    // Format the selected text for documentation
-    const snippet = new Selector(editor).select();
-    const formatted = new SnippetFormatter(snippet, this.mode).format();
+      // Put formatted text on clipboard
+      vscode.env.clipboard.writeText(formatted);
 
-    console.log("formatted:", JSON.stringify(formatted));
-
-    // Put formatted text on clipboard
-    vscode.env.clipboard.writeText(formatted);
-
-    // The code you place here will be executed every time your command is executed
-    // Display a message box to the user
-    vscode.window.showInformationMessage(
-      `${snippet.language} snippet copied to clipboard.`
-    );
+      // The code you place here will be executed every time your command is executed
+      // Display a message box to the user
+      vscode.window.showInformationMessage(
+        `${snippet.language} snippet copied to clipboard.`
+      );
+    };
   }
 }
 

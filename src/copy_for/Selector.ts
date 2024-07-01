@@ -4,6 +4,7 @@ import { type CodeSnippet } from "./types";
 
 class Selector {
   editor: vscode.TextEditor;
+
   constructor(editor: vscode.TextEditor) {
     this.editor = editor;
   }
