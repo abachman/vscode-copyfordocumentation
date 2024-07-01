@@ -1,5 +1,9 @@
 name: Run VSCode Extension Tests
 
+# based on: 
+# - https://github.com/microsoft/vscode-test/blame/main/sample/.github/workflows/ci.yml
+# - https://github.com/microsoft/vscode-jupyter/blob/main/.github/workflows/build-test.yml
+
 on:
   push:
     branches:
