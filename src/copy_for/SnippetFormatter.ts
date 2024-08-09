@@ -22,6 +22,7 @@ class SnippetFormatter {
     const { snip } = this;
     switch (this.mode) {
       case "html":
+      case "rich":
         return `<p><code>${snip.path}:${snip.start_line}-${snip.end_line}</code></p>`;
       default:
         return `\`${snip.path}:${snip.start_line}-${snip.end_line}\`:\n`;
@@ -35,6 +36,7 @@ class SnippetFormatter {
       case "slack":
         return "```";
       case "html":
+      case "rich":
         return `<pre><code class="language-${this.languageId()}">`;
       default:
         return "";
@@ -48,6 +50,7 @@ class SnippetFormatter {
   closeCodeBlock(): string {
     switch (this.mode) {
       case "html":
+      case "rich":
         return "</code></pre>";
       default:
         return "```";

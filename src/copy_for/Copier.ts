@@ -21,15 +21,22 @@ class Copier {
 
       console.log("formatted:", JSON.stringify(formatted));
 
-      // Put formatted text on clipboard
-      vscode.env.clipboard.writeText(formatted);
+      const blob = new Blob([formatted], {
+        type: this.mimeType(mode),
+      });
 
-      // The code you place here will be executed every time your command is executed
-      // Display a message box to the user
-      vscode.window.showInformationMessage(
-        `${snippet.language} snippet copied to clipboard.`
-      );
+      blob.text().then((text) => {
+        vscode.env.clipboard.writeText(text).then(() => {
+          vscode.window.showInformationMessage(
+            `${snippet.language} snippet copied to clipboard.`
+          );
+        });
+      });
     };
+  }
+
+  mimeType(mode: CopyMode): string {
+    return mode === "rich" ? "text/html" : "text/plain";
   }
 }
 

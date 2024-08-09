@@ -1,4 +1,4 @@
-export type CopyMode = "markdown" | "slack" | "html";
+export type CopyMode = "markdown" | "slack" | "html" | "rich";
 export type Language = string;
 export type CodeSnippet = {
   snippet: string;

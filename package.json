@@ -26,15 +26,19 @@
     "commands": [
       {
         "command": "copyfordocumentation.copy",
-        "title": "Copy For Documentation"
+        "title": "Copy For: Copy For Documentation"
       },
       {
         "command": "copyfordocumentation.copySlack",
-        "title": "Copy For Slack"
+        "title": "Copy For: Copy For Slack"
       },
       {
         "command": "copyfordocumentation.copyHtml",
-        "title": "Copy For HTML"
+        "title": "Copy For: Copy For HTML"
+      },
+      {
+        "command": "copyfordocumentation.copyRich",
+        "title": "Copy For: Copy For Rich Text"
       }
     ]
   },

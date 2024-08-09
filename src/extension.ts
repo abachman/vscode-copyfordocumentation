@@ -31,6 +31,13 @@ export function activate(context: vscode.ExtensionContext) {
 
   context.subscriptions.push(
     vscode.commands.registerCommand(
+      "copyfordocumentation.copyRich",
+      new Copier().copy("rich")
+    )
+  );
+
+  context.subscriptions.push(
+    vscode.commands.registerCommand(
       "copyfordocumentation.copyHtml",
       new Copier().copy("html")
     )
